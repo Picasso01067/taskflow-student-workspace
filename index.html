@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TaskFlow | Student Workspace</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#">
+            <b>T</b>
+            <span>
+                TaskFlow
+                <small>STUDENT WORKSPACE</small>
+            </span>
+        </a>
+
+        <p class="label">WORKSPACE</p>
+
+        <button class="nav active" data-view="dashboard">▦　Dashboard</button>
+        <button class="nav" data-view="tasks">☷　My Tasks</button>
+        <button class="nav" data-view="schedule">▣　Schedule</button>
+
+        <p class="label">TASK STATUS</p>
+
+        <button class="nav" data-filter="all">●　All Tasks</button>
+        <button class="nav" data-filter="pending">●　Pending</button>
+        <button class="nav" data-filter="completed">●　Completed</button>
+
+        <div class="sidebottom">
+            <div class="tip">
+                ✦
+                <h3>Stay on track</h3>
+                <p>Small steps every day lead to big results.</p>
+            </div>
+
+            <div class="user">
+                <b>ST</b>
+                <span>
+                    Student
+                    <small>My workspace</small>
+                </span>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <header>
+            <button id="menu" class="menu">☰</button>
+            <span>Workspace　/　<strong id="crumb">Dashboard</strong></span>
+            <button class="primary" id="newTop">＋ New Task</button>
+        </header>
+
+        <section id="dashboard" class="page">
+            <div class="intro">
+                <div>
+                    <small class="eyebrow">YOUR PERSONAL STUDY SPACE</small>
+                    <h1>Good day, Student <em>✦</em></h1>
+                    <p>Plan your work, manage your time, and make progress one task at a time.</p>
+                </div>
+
+                <div class="date">
+                    TODAY
+                    <strong id="today"></strong>
+                </div>
+            </div>
+
+            <div class="stats">
+                <article>
+                    <small>Total tasks</small>
+                    <b id="total">0</b>
+                    <p>All tasks in your workspace</p>
+                </article>
+
+                <article>
+                    <small>Pending</small>
+                    <b id="pending">0</b>
+                    <p>Tasks waiting to be done</p>
+                </article>
+
+                <article>
+                    <small>Completed</small>
+                    <b id="done">0</b>
+                    <p>Tasks you have finished</p>
+                </article>
+
+                <article>
+                    <small>Overdue</small>
+                    <b id="overdue">0</b>
+                    <p>Pending tasks past due date</p>
+                </article>
+            </div>
+
+            <div class="columns">
+                <section class="panel">
+                    <div class="panelhead">
+                        <div>
+                            <small class="eyebrow">KEEP MAKING PROGRESS</small>
+                            <h2>Recent tasks</h2>
+                        </div>
+
+                        <button class="link" id="viewAll">View all tasks →</button>
+                    </div>
+
+                    <div id="recent"></div>
+                </section>
+
+                <section class="panel progress">
+                    <small class="eyebrow">YOUR PERFORMANCE</small>
+                    <h2>Task progress</h2>
+
+                    <div class="ring" id="ring">
+                        <div>
+                            <b id="percent">0%</b>
+                            <small>Completed</small>
+                        </div>
+                    </div>
+
+                    <p id="progressText">Add your first task to start tracking your progress.</p>
+                </section>
+            </div>
+        </section>
+
+        <section id="tasks" class="page hide">
+            <div class="pagehead">
+                <div>
+                    <small class="eyebrow">ORGANIZE YOUR WORK</small>
+                    <h1>My Tasks</h1>
+                    <p>Keep every assignment and deadline in one place.</p>
+                </div>
+
+                <button class="primary" id="add">＋ Add New Task</button>
+            </div>
+
+            <div class="toolbar">
+                <input id="search" placeholder="⌕  Search tasks or subjects...">
+
+                <select id="status">
+                    <option value="all">All status</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                </select>
+
+                <select id="priorityFilter">
+                    <option value="all">All priorities</option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                </select>
+            </div>
+
+            <div class="table">
+                <div class="thead">
+                    <span>Task details</span>
+                    <span>Due date</span>
+                    <span>Priority</span>
+                    <span>Status</span>
+                    <span>Actions</span>
+                </div>
+
+                <div id="list"></div>
+            </div>
+
+            <p id="count" class="muted"></p>
+        </section>
+
+        <section id="schedule" class="page hide">
+            <div class="pagehead">
+                <div>
+                    <small class="eyebrow">PLAN AHEAD</small>
+                    <h1>Upcoming schedule</h1>
+                    <p>Your pending tasks arranged by due date.</p>
+                </div>
+            </div>
+
+            <section class="panel" id="upcoming"></section>
+        </section>
+
+        <footer>TaskFlow · Student Task Management System</footer>
+    </main>
+
+    <div class="shade hide" id="shade">
+        <form id="form" class="modal">
+            <div class="modalhead">
+                <div>
+                    <small class="eyebrow">TASK DETAILS</small>
+                    <h2 id="modalTitle">Create a task</h2>
+                </div>
+
+                <button type="button" id="close" class="x">×</button>
+            </div>
+
+            <label>
+                Task title
+                <input id="title" maxlength="70" required placeholder="e.g. Finish HCI activity">
+            </label>
+
+            <label>
+                Description
+                <textarea id="description" rows="3" maxlength="240" placeholder="Short description (optional)"></textarea>
+            </label>
+
+            <div class="formrow">
+                <label>
+                    Subject
+                    <input id="subject" required maxlength="40" placeholder="e.g. Platform Technologies">
+                </label>
+
+                <label>
+                    Due date
+                    <input id="due" type="date" required>
+                </label>
+            </div>
+
+            <div class="formrow">
+                <label>
+                    Priority
+                    <select id="priority">
+                        <option>Medium</option>
+                        <option>High</option>
+                        <option>Low</option>
+                    </select>
+                </label>
+
+                <label>
+                    Status
+                    <select id="taskStatus">
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </label>
+            </div>
+
+            <p id="error" class="error"></p>
+
+            <div class="actions">
+                <button type="button" class="secondary" id="cancel">Cancel</button>
+                <button class="primary">Save task</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
